@@ -7,7 +7,7 @@ const PORT = 3030;
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
+  res.sendFile(path.join(__dirname, "index.html"));// connects the HTML file
 });
 
 const MONGO_URL = "mongodb://delta_admin:delta_password@localhost:27017";
@@ -23,10 +23,8 @@ app.listen(PORT, () => {
 app.get("/getUsers", async (req, res) => {
   await client.connect(MONGO_URL);
   console.log("Connected successfully to server");
-
   const db = client.db("my-sample-db");
   const data = await db.collection("users").find({}).toArray();
-
   await client.close();
   res.send(data);
 });
